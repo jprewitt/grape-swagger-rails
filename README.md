@@ -29,9 +29,10 @@ mount GrapeSwaggerRails::Engine => '/swagger'
 Create an initializer (e.g. `./config/initializer/swagger.rb`) and specify the URL to your Swagger API schema:
 
 ```ruby
-GrapeSwaggerRails.options.url      = '/swagger_doc.json'
-GrapeSwaggerRails.options.app_name = 'Swagger'
-GrapeSwaggerRails.options.app_url  = 'http://swagger.wordnik.com'
+GrapeSwaggerRails.options.url         = [{url: '/swagger_doc1.json', version: 'v1'}, {url: '/swagger_doc2.json', version: 'v2'}]
+GrapeSwaggerRails.options.default_url = {url: '/swagger_doc1.json', version: 'v1'}
+GrapeSwaggerRails.options.app_name    = 'Swagger'
+GrapeSwaggerRails.options.app_url     = 'http://swagger.wordnik.com'
 ```
 
 You can specify additional headers to add to each request:
