@@ -10,7 +10,7 @@
 	  var options = $("html").data('swagger-options');
 	  
     window.swaggerUi = new SwaggerUi({
-      url: options.app_url + options.url,
+      url: options.default_url.url,
       dom_id:"swagger-ui-container",
       supportHeaderParams: true,
       headers: options.headers,
@@ -44,6 +44,12 @@
         window.authorizations.add("key", null);
       }
     })
+
+    $('.version-link').click(function(e) {
+        e.preventDefault();
+        window.swaggerUi.options.url = $(this).attr('href');
+        window.swaggerUi.load();
+    })
     window.swaggerUi.load();
   });
   </script>
@@ -60,6 +66,12 @@
       <div class='input'><a id="explore" href="#">Explore</a></div>
     </form>
   </div>
+</div>
+
+<div class="version-bar swagger-ui-wrap">
+  <% GrapeSwaggerRails.options.url.each do |url| %>
+    <%= link_to url[:version], url[:url], :class => 'version-link' %>
+  <% end %>
 </div>
 
 <div id="message-bar" class="swagger-ui-wrap">
