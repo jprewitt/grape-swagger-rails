@@ -8,7 +8,7 @@
   <script type="text/javascript">
 	$(function () {
 	  var options = $("html").data('swagger-options');
-	  
+
     window.swaggerUi = new SwaggerUi({
       url: options.default_url.url,
       dom_id:"swagger-ui-container",
@@ -49,6 +49,7 @@
         e.preventDefault();
         window.swaggerUi.options.url = $(this).attr('href');
         window.swaggerUi.load();
+        $('.version-title-target').text($(this).text());
     })
     window.swaggerUi.load();
   });
@@ -58,7 +59,10 @@
 <body>
 <div id='header'>
   <div class="swagger-ui-wrap">
-    <a id="logo" href="<%= GrapeSwaggerRails.options.app_url %>"><%= GrapeSwaggerRails.options.app_name %></a>
+    <a id="logo" href="<%= GrapeSwaggerRails.options.app_url %>">
+      <%= GrapeSwaggerRails.options.app_name %>
+      <span class='version-title-target'><%= GrapeSwaggerRails.options.default_url.with_indifferent_access[:version] %></span>
+    </a>
 
     <form id='api_selector'>
       <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
@@ -70,6 +74,7 @@
 
 <div class="version-bar swagger-ui-wrap">
   <% GrapeSwaggerRails.options.url.each do |url| %>
+    <% u = url.with_indifferent_access %>
     <%= link_to url[:version], url[:url], :class => 'version-link' %>
   <% end %>
 </div>
